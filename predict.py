@@ -70,17 +70,17 @@ breaks = list(zip([sum(R[0:j]) for j in range(D)],[sum(R[0:j]) for j in range(1,
 #sum(np.tile(np.expand_dims(theta[0],1),[1,R[0]])*phi[0,:,0:2])
 #P_ky = {feature_types[i]:np.tile(np.expand_dims(theta[i],1),[1,R[i]])*phi[i,:,breaks[i][0]:breaks[i][1]] i in range(phi.shape[0])}
 p_k_y = {feature_types[d]:np.stack([np.tile(np.expand_dims(theta[i],1),[1,R[d]])*phi[i,:,breaks[d][0]:breaks[d][1]] for i in range(phi.shape[0])]) for d in range(D)}
-h_k_y = {feature_types[d]:[(entropy(p_k_y[feature_types[d]][i].flatten()) - entropy(np.sum(p_k_y[feature_types[d]][i],1))) for i in range(phi.shape[0])] for d in range(D)}
-h_y_k = {feature_types[d]:[(entropy(p_k_y[feature_types[d]][i].flatten()) - entropy(np.sum(p_k_y[feature_types[d]][i],0))) for i in range(phi.shape[0])] for d in range(D)}
-h_k_y_ = {k:np.mean(h_k_y[k]) for k in h_y_k.keys()}
-h_y_k_ = {k:np.mean(h_y_k[k]) for k in h_k_y.keys()}
+h_c_w = {feature_types[d]:[(entropy(p_k_y[feature_types[d]][i].flatten()) - entropy(np.sum(p_k_y[feature_types[d]][i],0))) for i in range(phi.shape[0])] for d in range(D)} #col sum P(word)
+h_w_c = {feature_types[d]:[(entropy(p_k_y[feature_types[d]][i].flatten()) - entropy(np.sum(p_k_y[feature_types[d]][i],1))) for i in range(phi.shape[0])] for d in range(D)} #row sum P(clust) P(cluster)
+h_c_w_ = {k:np.mean(h_c_w[k]) for k in h_c_w.keys()}
+h_w_c_ = {k:np.mean(h_w_c[k]) for k in h_w_c.keys()}
 
 
 
 f = open('group_predictability.csv','w')
-for k in h_k_y_.keys():
+for k in h_c_w_.keys():
   #print(sorted(outcomes.keys())[d],(x[d],y[d]))
-  print(';'.join([k,str(h_k_y_[k]),str(h_y_k_[k])]),file=f)
+  print(';'.join([k,str(h_w_c_[k]),str(h_c_w_[k])]),file=f)
 
 
 f.close()
