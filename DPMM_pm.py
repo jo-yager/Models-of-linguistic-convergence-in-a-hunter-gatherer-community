@@ -104,7 +104,7 @@ def main():
             batch = sys.argv[6]
             N,J,D,R,Y,Sigmas,hold_in,hold_out,ethnic_id = generate_data_holdout(filename,batch,normalize)
         N,J,D,R,Y,Sigmas,featvar_id,ethnic_id = generate_data(filename,normalize)
-        print(J)
+        print(D,Y)
         chain = sys.argv[3]
         if sys.argv[2] == 'dir':
             if batch != '':
