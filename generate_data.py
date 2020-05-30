@@ -12,7 +12,7 @@ def generate_data(filename,normalize=True):
     """generate long data format"""
     long_data = [[text[0][j],text[i][0],text[i][j]] for i in range(1,len(text)) for j in range(1,len(text[i]))]
     """get rid of non-Rual speakers and missing entries"""
-    bv_speakers = [l.strip().split('\t') for l in open('datasets/basic_vocabulary_data.csv','r')][0]
+    bv_speakers = [l.strip().split('\t') for l in open('datasets/basic_vocabulary_data.csv','r')][0][1:]
     if normalize == True:
         long_data = [l for l in long_data if l[0] in bv_speakers and l[2] != '?']
     else:
@@ -56,7 +56,7 @@ def generate_data_holdout(filename,k,normalize=True):
     """generate long data format"""
     long_data = [[text[0][j],text[i][0],text[i][j]] for i in range(1,len(text)) for j in range(1,len(text[i]))]
     """get rid of non-Rual speakers and missing entries"""
-    bv_speakers = [l.strip().split('\t') for l in open('datasets/basic_vocabulary_data.csv','r')][0]
+    bv_speakers = [l.strip().split('\t') for l in open('datasets/basic_vocabulary_data.csv','r')][0][1:]
     if normalize == True:
         long_data = [l for l in long_data if l[0] in bv_speakers and l[2] != '?']
     else:
