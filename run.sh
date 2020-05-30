@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#conda install pymc3 #version==3.7
+
 for i in {0..3}; do for prior in dir LN; do for dataset in basic_vocabulary_data.csv caused_motion_data.csv reciprocal_data.csv topological_relations_data.csv; do for mode in TRUE FALSE; do
 	#run model for one chain
 	python3 DPMM_pm.py $dataset $prior $i $mode
